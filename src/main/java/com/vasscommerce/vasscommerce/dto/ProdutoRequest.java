@@ -1,12 +1,14 @@
 package com.vasscommerce.vasscommerce.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 
 public class ProdutoRequest {
-    @NotBlank(message = "O produto deve possuir uma categoria")
+    @NotNull(message = "O produto deve possuir uma categoria")
     private Long categoriaId;
 
     @NotBlank(message = "O nome é obrigatório")
@@ -19,10 +21,8 @@ public class ProdutoRequest {
     @NotBlank(message = "A URL da imagem é obrigatória")
     private String fotoUrl;
 
-    private LocalDateTime dataCadastro;
-    private LocalDateTime dataUltimaAtualizacao;
-
-    @NotBlank(message = "O valor é obrigatório")
+    @Positive
+    @NotNull(message = "O valor é obrigatório")
     private float valorUnitario;
 
     public Long getCategoriaId() {
@@ -55,22 +55,6 @@ public class ProdutoRequest {
 
     public void setFotoUrl(String fotoUrl) {
         this.fotoUrl = fotoUrl;
-    }
-
-    public LocalDateTime getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(LocalDateTime dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
-
-    public LocalDateTime getDataUltimaAtualizacao() {
-        return dataUltimaAtualizacao;
-    }
-
-    public void setDataUltimaAtualizacao(LocalDateTime dataUltimaAtualizacao) {
-        this.dataUltimaAtualizacao = dataUltimaAtualizacao;
     }
 
     public float getValorUnitario() {

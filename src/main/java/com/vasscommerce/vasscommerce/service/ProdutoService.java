@@ -52,7 +52,17 @@ public class ProdutoService {
     //Metodo criação
     public Produto criarProduto(Produto produto){
         produto.setId((long) (produtos.size() + 1));
+        produto.setDataCadastro(LocalDateTime.now());
+        produto.setDataUltimaAtualizacao(LocalDateTime.now());
         produtos.add(produto);
         return produto;
+    }
+
+    //Metodo de Delete
+    public void deletarProduto(Long id) {
+        Produto produto = buscarProdutoPorId(id);
+        if (produto != null) {
+            produtos.remove(produto);
+        }
     }
 }

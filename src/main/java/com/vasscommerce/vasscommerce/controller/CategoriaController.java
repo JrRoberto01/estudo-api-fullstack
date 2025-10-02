@@ -94,7 +94,7 @@ public class CategoriaController {
         if(categoriaCriada == null){
             return ResponseEntity.status(500).build();
         }else{
-            URI location = URI.create("/categorias" + categoriaCriada.getId());
+            URI location = URI.create("/categorias/" + categoriaCriada.getId());
             CategoriaResponse response = CategoriaMapper.toResponse(categoriaCriada);
             return ResponseEntity.created(location).body(response);
         }

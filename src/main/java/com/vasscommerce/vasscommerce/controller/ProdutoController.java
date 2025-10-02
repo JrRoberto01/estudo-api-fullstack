@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,10 +59,39 @@ public class ProdutoController {
         if(produtoCriado == null){
             return ResponseEntity.status(500).build();
         }else{
-            URI location = URI.create("/produtos" + produtoCriado.getId());
+            URI location = URI.create("/produtos/" + produtoCriado.getId());
             ProdutoResponse response= ProdutoMapper.toResponse(produtoCriado);
             return ResponseEntity.created(location).body(response);
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ProdutoResponse> atualizarProduto(@PathVariable Long id, @Valid @RequestBody ProdutoRequest dto) {
+
+        Produto produto = produtoService.buscarProdutoPorId(id);
+        if (produto == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // atualizar campos
+        produto.setNome(dto.getNome());
+        produto.setDescricao(dto.getDescricao());
+        produto.setFotoUrl(dto.getFotoUrl());
+        produto.setCategoriaId(dto.getCategoriaId());
+        produto.setValorUnitario(dto.getValorUnitario());
+        produto.setDataUltimaAtualizacao(LocalDateTime.now());
+
+        return ResponseEntity.ok(ProdutoMapper.toResponse(produto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarProduto(@PathVariable Long id) {
+        Produto produto = produtoService.buscarProdutoPorId(id);
+        if (produto == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        produtoService.deletarProduto(id);
+        return ResponseEntity.noContent().build();
+    }
 }

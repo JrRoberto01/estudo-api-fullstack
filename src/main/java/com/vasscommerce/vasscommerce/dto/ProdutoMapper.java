@@ -10,8 +10,8 @@ public class ProdutoMapper {
                 dto.getNome(),
                 dto.getDescricao(),
                 dto.getFotoUrl(),
-                dto.getDataCadastro(),
-                dto.getDataUltimaAtualizacao(),
+                null, //Será setada no Service
+                null,
                 dto.getValorUnitario()
         );
     }
@@ -24,7 +24,7 @@ public class ProdutoMapper {
                 produto.getDescricao(),
                 produto.getFotoUrl(),
                 produto.getDataCadastro(),
-                produto.getDataCadastro(),
+                produto.getDataUltimaAtualizacao(),
                 produto.getValorUnitario()
         );
     }
